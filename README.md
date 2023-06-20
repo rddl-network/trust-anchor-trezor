@@ -20,7 +20,7 @@ To deploy the application, run the following command:
 
 If you are using Visual Studio Code, you can deploy the application by clicking on the PlatformIO icon on the left-hand side, selecting your board, and clicking on the "Upload" button.
 
-This will compile and upload the firmware to the ESP-G3-32S CPU. Please make sure that your board is connected to your system and that you have selected the correct port in the `platformio.ini` file.
+This will compile and upload the firmware to the ESP-C3-32S CPU. Please make sure that your board is connected to your system and that you have selected the correct port in the `platformio.ini` file.
 
 ## Monitoring
 
