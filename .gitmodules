@@ -1,6 +1,6 @@
 [submodule "lib/trezor-crypto"]
-	path = lib/trezor-crypto
+	path = src/lib/trezor-crypto
 	url = git@github.com:trezor/trezor-crypto.git
 [submodule "lib/OSC"]
-	path = lib/OSC
+	path = src/lib/OSC
 	url = https://github.com/CNMAT/OSC
