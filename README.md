@@ -45,7 +45,7 @@ If you have any suggestions or improvements, please feel free to contribute to t
 
 ## To DO
 
-- There are architecture specific files in the Trezor library, a python script was used to remove them. Instead of this method, a more formal way should be followed by using Git Patch. (DONE)
+- There are architecture specific files in the Trezor library, a python script was used to remove them. Instead of this method, a more formal way should be followed. (DONE)
 
 ## License
 
