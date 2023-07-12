@@ -38,6 +38,7 @@ The following libraries are used in this project and are included in the `lib` f
 
 - OSC: used for communication with the Trusted-anker
 - Trezor: used for cryptography
+- seal-edge-apdu: used for communication with se050
 
 ## Contributing
 
