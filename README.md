@@ -48,6 +48,10 @@ If you have any suggestions or improvements, please feel free to contribute to t
 
 - There are architecture specific files in the Trezor library, a python script was used to remove them. Instead of this method, a more formal way should be followed. (DONE)
 
+## Notes!
+
+Libs are moved under src directory to use "build_src_filter" in platformio.ini file. 
+
 ## License
 
 This repository is licensed under the MIT License. See the `LICENSE` file for more information.
