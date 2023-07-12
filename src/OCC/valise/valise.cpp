@@ -1,14 +1,16 @@
-#include "bip3x_wrapper.h"
-#include "utils.h"
+#include "valise.h"
+#include "../utils/utils.h"
 #include <Preferences.h>
 
-void sendOSCMessage(OSCMessage& resp_msg){
+
+static void sendOSCMessage(OSCMessage& resp_msg){
     BIP3X_SERIAL_BEGIN();
     resp_msg.send(BIP32_SERIAL);
     BIP3X_SERIAL_END();
     resp_msg.empty();
     delay(20);
 }
+
 
 Preferences valise;
 
@@ -63,110 +65,6 @@ void routeValiseSeedGet(OSCMessage &msg, int addressOffset)
     sendOSCMessage(resp_msg);
 
     delay(20);
-}
-
-/**
- * Generate mnemonic from bytes
- *
- * @param string(0) <optional> byte array to be used for mnemonic generation
- * @return Generated mnemonic
- */
-void routeBip39Mnemonic(OSCMessage &msg, int addressOffset)
-{
-    uint8_t data[32] = {0};
-    
-    if (msg.isString(0))
-    {
-        int length = msg.getDataLength(0);
-        char hexStr[length];
-        msg.getString(0, hexStr, length);
-
-        memcpy(data, (const unsigned char *)fromhex(hexStr), 32);
-    }else
-        esp_fill_random(data, 32);
-    
-    OSCMessage resp_msg("/bip39Mnemonic");
-    resp_msg.add(mnemonic_from_data(data, 24));
-
-    sendOSCMessage(resp_msg);
-}
-
-
-/**
- * Generate seed from mnemonic
- *
- * @param string(0) Mnemonic
- * @return Generated seed
- */
-void routeBip39MnemonicToSeed(OSCMessage &msg, int addressOffset)
-{
-    int res;
-    size_t len;
-    uint8_t seed[64];
-    char passPhrase[128];
-    OSCMessage resp_msg("/bip39MnemonicToSeed");
-
-    if (msg.isString(0))
-    {
-        int length = msg.getDataLength(0);
-        char mnemonic[length];
-        msg.getString(0, mnemonic, length);
-
-        if (msg.isString(1)){
-            length = msg.getDataLength(1);
-            msg.getString(1, passPhrase, length);
-        }else{
-            memcpy(passPhrase, "trustanchor", sizeof("trustanchor"));
-        }
-
-        mnemonic_to_seed(mnemonic, passPhrase, seed, NULL);
-
-        String hexStr;
-        hexStr = toHex(seed, 64);
-        resp_msg.add(hexStr.c_str());
-    }else{
-        resp_msg.add("ERROR! No mnemonic");
-    }
-
-    sendOSCMessage(resp_msg);
-}
-
-
-
-
-/**
- * Generate priv and pub key from given Seed
- *
- * @param string(0) seed in String type
- * @return Generated priv and pub key in Base58. Sending over OSC as string
- */
-void routeBip32KeyFromSeed(OSCMessage &msg, int addressOffset)
-{
-    OSCMessage resp_msg("/bip32KeyFromSeed");
-    HDNode hdnode;
-    uint8_t sign[64]; 
-    
-    if (msg.isString(0))
-    {
-        int length = msg.getDataLength(0);
-        char seed[length];
-        msg.getString(0, seed, length);
-
-        int resp = hdnode_from_seed((const unsigned char *)fromhex(seed), length/2, ED25519_NAME, &hdnode);
-
-        ed25519_publickey(hdnode.private_key, hdnode.public_key);
-
-        char priv_b58[256];
-        char pub_b58[256];
-        size_t priv_len, pub_len;
-        b58enc(priv_b58, &priv_len, hdnode.private_key, 32);
-        b58enc(pub_b58, &pub_len, hdnode.public_key, 33);
-
-        resp_msg.add(priv_b58);
-        resp_msg.add(pub_b58);
-    }
-
-    sendOSCMessage(resp_msg);
 }
 
 
@@ -249,16 +147,4 @@ void routeVerifySign(OSCMessage &msg, int addressOffset)
     }
 
     sendOSCMessage(resp_msg);
-}
-
-
-void bip3xOSCMsgMap(OSCMessage& msg){
-    msg.route("/IHW/bip39Mnemonic", routeBip39Mnemonic);
-    msg.route("/IHW/bip39MnemonicFromBytes", routeBip39Mnemonic);
-    msg.route("/IHW/bip39MnemonicToSeed", routeBip39MnemonicToSeed);
-    msg.route("/IHW/bip32_key_from_seed", routeBip32KeyFromSeed);
-    msg.route("/IHW/valiseSeedSet", routeValiseSeedSet);
-    msg.route("/IHW/valiseSeedGet", routeValiseSeedGet);
-    msg.route("/IHW/valiseSignDigest", routeSignDigest);
-    msg.route("/IHW/valiseVerifySign", routeVerifySign);
 }

@@ -1,7 +1,6 @@
-#include <OSCMessage.h>
-#include <OSCBundle.h>
-#include <OSCData.h>
-#include <OSCBoards.h>
+#pragma once
+
+#include "OSCMessage.h"
 
 extern "C"{
     #include "bip32.h"
@@ -19,9 +18,6 @@ extern SLIPEncodedSerial SLIPSerial;
 
 void routeValiseSeedSet(OSCMessage &msg, int addressOffset);
 void routeValiseSeedGet(OSCMessage &msg, int addressOffset);
-void routeBip39Mnemonic(OSCMessage &msg, int addressOffset);
-void routeBip39MnemonicToSeed(OSCMessage &msg, int addressOffset);
-void routeBip32KeyFromSeed(OSCMessage &msg, int addressOffset);
 void routeSignDigest(OSCMessage &msg, int addressOffset);
 void routeVerifySign(OSCMessage &msg, int addressOffset);
-void bip3xOSCMsgMap(OSCMessage& msg);
+
