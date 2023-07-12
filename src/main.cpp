@@ -19,6 +19,8 @@ SLIPEncodedSerial SLIPSerial(SerialESP);
 void setup()
 {
   Serial.begin(115200);
+  SerialESP.setRxBufferSize(1024);
+  SerialESP.setTxBufferSize(1024);
   SerialESP.begin(115200, SERIAL_8N1, 19, 18); 
 
 #ifdef DSE050
@@ -57,7 +59,9 @@ void loop(){
     msg.route("/IHW/valiseVerifySign", routeVerifySign);
 
     /* SE050 functions */
+#ifdef DSE050
     msg.route("/IHW/se050SetSeed", routeSE050EncryptData);
     msg.route("/IHW/se050GetSeed", routeSE050DecryptData);
+#endif
   }
 }

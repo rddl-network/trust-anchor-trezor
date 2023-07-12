@@ -8,14 +8,6 @@ constexpr int BINARY_RW_SLOT = 224;
 constexpr int BINARY_READ_SIZE = 64;
 std::string AES_INIT_VECT {"f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff"};
 
-static void sendOSCMessage(OSCMessage& resp_msg){
-    BIP3X_SERIAL_BEGIN();
-    resp_msg.send(BIP32_SERIAL);
-    BIP3X_SERIAL_END();
-    resp_msg.empty();
-    delay(20);
-}
-
 
 std::vector<uint8_t> getAESEncrypt(const std::string plainp, const uint8_t* key){
     int plainTextLen = plainp.length()-1;

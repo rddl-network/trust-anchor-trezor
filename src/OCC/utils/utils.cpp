@@ -2,6 +2,16 @@
 
 #define BIP32_INITIAL_HARDENED_CHILD 0x80000000
 
+
+void sendOSCMessage(OSCMessage& resp_msg){
+    ESP_SERIAL_BEGIN();
+    resp_msg.send(ESP_SERIAL);
+    ESP_SERIAL_END();
+    resp_msg.empty();
+    delay(20);
+}
+
+
 // forward declaration
 void err(const char * message, void * data = NULL);
 

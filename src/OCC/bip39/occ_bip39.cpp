@@ -1,13 +1,6 @@
 #include "occ_bip39.h"
 #include "../utils/utils.h"
 
-static void sendOSCMessage(OSCMessage& resp_msg){
-    BIP3X_SERIAL_BEGIN();
-    resp_msg.send(BIP32_SERIAL);
-    BIP3X_SERIAL_END();
-    resp_msg.empty();
-    delay(20);
-}
 
 /**
  * Generate mnemonic from bytes
