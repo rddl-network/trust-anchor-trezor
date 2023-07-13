@@ -38,6 +38,7 @@ The following libraries are used in this project and are included in the `lib` f
 
 - OSC: used for communication with the Trusted-anker
 - Trezor: used for cryptography
+- seal-edge-apdu: used for communication with se050
 
 ## Contributing
 
@@ -46,6 +47,10 @@ If you have any suggestions or improvements, please feel free to contribute to t
 ## To DO
 
 - There are architecture specific files in the Trezor library, a python script was used to remove them. Instead of this method, a more formal way should be followed. (DONE)
+
+## Notes!
+
+Libs are moved under src directory to use "build_src_filter" in platformio.ini file. 
 
 ## License
 
