@@ -7,4 +7,3 @@
 [submodule "src/lib/se050"]
 	path = src/lib/se050
 	url = git@github.com:rddl-network/seal-edge-apdu.git
-	branch = main
