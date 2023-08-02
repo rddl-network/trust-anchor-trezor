@@ -4,3 +4,6 @@
 [submodule "src/lib/OSC"]
 	path = src/lib/OSC
 	url = git@github.com:rddl-network/OSC.git
+[submodule "src/lib/se050"]
+	path = src/lib/se050
+	url = git@github.com:rddl-network/seal-edge-apdu.git
