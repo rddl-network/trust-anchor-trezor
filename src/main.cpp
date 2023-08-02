@@ -13,8 +13,9 @@
 
 #include <SLIPEncodedSerial.h>
 
-HardwareSerial    SerialESP(0); // use UART0
+// HardwareSerial    SerialESP(0); // use UART0
 // HardwareSerial    SerialESP(1); // use UART1
+HWCDC SerialESP;
 SLIPEncodedSerial SLIPSerial(SerialESP);
 
 void setup()
@@ -22,11 +23,11 @@ void setup()
   //Serial.begin(115200);
   SerialESP.setRxBufferSize(1024);
   SerialESP.setTxBufferSize(1024);
-  SerialESP.begin(115200);  // use UART0
+  SLIPSerial.begin(115200);  // use UART0
   //SerialESP.begin(115200, SERIAL_8N1, 19, 18); // use UART1
 
 #ifdef DSE050
-  se050_obj.init_interface(5, 6);
+  se050_obj.init_interface(6, 7);
 #endif
   
   delay(20);
