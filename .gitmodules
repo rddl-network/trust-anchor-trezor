@@ -1,9 +1,6 @@
 [submodule "lib/trezor-crypto"]
 	path = src/lib/trezor-crypto
 	url = git@github.com:trezor/trezor-crypto.git
-[submodule "lib/OSC"]
+[submodule "src/lib/OSC"]
 	path = src/lib/OSC
-	url = https://github.com/CNMAT/OSC
-[submodule "src/lib/se050"]
-	path = src/lib/se050
-	url = git@github.com:rddl-network/seal-edge-apdu.git
+	url = git@github.com:rddl-network/OSC.git
